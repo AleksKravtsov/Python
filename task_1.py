@@ -1,11 +1,3 @@
-first_name = 'Aleks'
-Surname = 'Kravtsov'
-age = 25
-print(first_name, Surname)
-print(age)
-
-fname = input('Как вас зовут?')
-sname = input('А фамилия?')
-age = int(input('Сколько тебе лет?'))
-print(fname, sname)
-print(age)
+my_list = [15, 'avbhg', 100, 14.3, None, False,(1, 2), [2, 7], {12, 15}]
+for list in my_list:
+    print(type(list))
