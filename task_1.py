@@ -1,3 +1,4 @@
-my_list = [15, 'avbhg', 100, 14.3, None, False,(1, 2), [2, 7], {12, 15}]
-for list in my_list:
-    print(type(list))
+my_list = [15, 'avbhg', 100, 14.3, None, False,(1, 2), [2, 7], {12, 15}]  #Ввели значения списка
+for list in my_list:  #Для переменной list выполняем цикл для каждого элемента списка my_list
+    print(type(list))  #Выводим на экран тип каждого элемента списка
+

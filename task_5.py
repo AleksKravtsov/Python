@@ -1,16 +1,18 @@
-revenue = int(input('Введите значение выручки'))
-costs = int(input('Введите значение издержек'))
 
-if revenue < costs:
-    print('Вы работаете в убыток!')
-elif revenue == costs:
-    print('Ваша деятельность выходит в ноль.')
-else:
-    profit = revenue - costs
-    print('Поздравляем, ваша работа приносит прибыль!')
-    print('Размер вашей прибыли: ', profit)
-    margin = revenue / costs
-    print('Ваша рентабельность:', margin)
-    workers = int(input('Введите число сотрудников:'))
-    income_per_worker = profit / workers
-    print('На каждого вашего сотрудника приходится', int(income_per_worker), 'прибыли')
+my_list = [7, 5, 3, 3, 2]
+a = (float(input('Введите новый элемент рейтинга:')))  # Пользователь вводит вещественное число
+
+for i in range(len(my_list)):  # Для каждой итерации в диапазоне списка проверяется
+    if a > my_list[i]:  # Если введеное значение меньше существуещего значения с индексом i
+        my_list.insert(i, a)  # Вставляет значение заданное пользователем по индексу i
+        break  # Если условие выполняется, закачивает цикл
+    else:  # В другом случае помещает это значение в конеч списка
+        my_list.append(a)
+        break  # Если условие выполняется, закачивает цикл
+
+print(my_list)
+
+'''my_list = [7, 5, 3, 3, 2]
+my_list.append(float(input('Введите новый элемент рейтинга:')))
+my_list.sort(reverse=True)
+print(my_list)'''
