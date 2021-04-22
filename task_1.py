@@ -1,4 +1,23 @@
-my_list = [15, 'avbhg', 100, 14.3, None, False,(1, 2), [2, 7], {12, 15}]  #Ввели значения списка
-for list in my_list:  #Для переменной list выполняем цикл для каждого элемента списка my_list
-    print(type(list))  #Выводим на экран тип каждого элемента списка
+def my_f(num_1, num_2):
+    dev = num_1 / num_2
+    return dev
+try:
+    print(my_f(int(input("Введите первое значение: ")), int(input("Введите второе значение: "))))
+
+except ZeroDivisionError:  # Перехватываем исключение деления на 0
+    print('Devision Error, try next time ;)')
+
+
+'''def my_f(num_1, num_2):
+    try:
+        return num_1 / num_2
+    except ZeroDivisionError:
+        print('Devision Error, try next time ;)')
+print(my_f(int(input("Введите первое значение: ")), int(input("Введите второе значение: "))))'''
+
+
+
+
+
+
 

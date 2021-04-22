@@ -1,8 +1,13 @@
-spisok = input('Введите значения через запятые: ').split(',')  #Пользователь заполняет список, и через запятые split разбивает список его на элементы
-print('Ваш список: ', spisok)  #Выводит на экран список, заданный пользователем
+def my_f(**kwargs):
+    return ' '.join(kwargs.values())  # Собирает значения в строку
+print(my_f(name = input('Введите имя: '), susrname = input('Введите фамилию: '), year = input('Введите год рождения: '),
+           city = input('Введите город: '), email = input('Введите email: '), phone_number = input('Введите номер телефона: ')))
 
-length = len(spisok) if len(spisok)%2==0 else len(spisok)-1  #Через тернарный оператор проверяется количество элементов списка на четность и не четность
-spisok[:length:2], spisok[1:length:2] = spisok[1:length:2], spisok[:length:2]  #С помощью 2х срезов список разбивается от 0 элемента до последнего с шагом 2
-                                                                               #и от 1 до последнего с шагом 2 и обмениваем значениями
-print('Измененный список: ', spisok)
+'''
+        Вариант с использованием lambda  функции.
+print((lambda **kwargs: kwargs)(name=input('Введите имя: '), susrname=input('Введите фамилию: '),
+                                year=input('Введите год рождения: '),
+                                city=input('Введите город: '), email=input('Введите email: '),
+                                phone_number=input('Введите номер телефона: ')))'''
+
 

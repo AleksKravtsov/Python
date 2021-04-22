@@ -1,33 +1,24 @@
-inventory_tuple_list = []
-i = 1
-while True:
-    inventory_tuple_list.append(
-        (input('Введите номер товара: '), dict({
-            'название': str(input('Введите название: ')),
-            'цена': float(input('Введите цену: ')),
-            'количество': int(input('Введите количество: ')),
-            'eд': str(input('Введите единцы измерения: ')),
-        }))
-    )
+# Реализовать функцию int_func(), принимающую слова из маленьких латинских букв и возвращающую их же, но с прописной первой буквой.
+# Например, print(int_func(‘text’)) -> Text.
 
-    if input('Товар добавлен. Добавить еще один товар? (да/нет): ') == 'нет':
-        break
+# Продолжить работу над заданием. В программу должна попадать строка из слов, разделённых пробелом.
+# Каждое слово состоит из латинских букв в нижнем регистре.
+# Нужно сделать вывод исходной строки, но каждое слово должно начинаться с заглавной буквы.
+# Используйте написанную ранее функцию int_func().
 
-    i += 1
-
-print(f'список товаров:{inventory_tuple_list}')
-
-output_dict = dict({})
-for product in inventory_tuple_list:
-    for key, value in product[-1].items():
-        if key in output_dict:
-            if value not in output_dict.get(key):
-                output_dict.get(key).append(value)
-        else:
-            output_dict.update({key: [value]})
+'''def int_func(text):
+    return text.title()
+print(int_func(input('Введите слово в нижнем регистре: ')))
+'''
 
 
-print(f'собрана аналитика: {output_dict}')
+def int_func():
+    for i in input('Введите латинские буквы в нижнем регистре: ').split():
+        a = 0  # Количество совпадений в цикле for b in i:
+        for b in i:
+            if 97 <= ord(b) <= 122:
+                a += 1
+        if a == len(i):  # Если а совпадает с количеством длины i
+            print(i.title())
 
-
-
+int_func()
