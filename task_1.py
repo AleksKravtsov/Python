@@ -1,19 +1,23 @@
-def my_f(num_1, num_2):
-    dev = num_1 / num_2
-    return dev
-try:
-    print(my_f(int(input("Введите первое значение: ")), int(input("Введите второе значение: "))))
+# Реализовать скрипт, в котором должна быть предусмотрена функция расчёта заработной платы сотрудника.
+# Используйте в нём формулу: (выработка в часах*ставка в час) + премия.
+# Во время выполнения расчёта для конкретных значений необходимо запускать скрипт с параметрами.
 
-except ZeroDivisionError:  # Перехватываем исключение деления на 0
-    print('Devision Error, try next time ;)')
+from sys import argv
 
+print(argv)
 
-'''def my_f(num_1, num_2):
-    try:
-        return num_1 / num_2
-    except ZeroDivisionError:
-        print('Devision Error, try next time ;)')
-print(my_f(int(input("Введите первое значение: ")), int(input("Введите второе значение: "))))'''
+name, virt, rev, prim = argv
+zp = argv[1:]
+for i in range(len(zp)):
+    old_value = zp[i]
+    new_value = int(old_value)
+    zp[i] = new_value
+a = zp[0]
+b = zp[1]
+c = zp[2]
+
+print(a*b+c)
+
 
 
 
