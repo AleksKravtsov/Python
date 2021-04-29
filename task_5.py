@@ -1,11 +1,11 @@
-# Реализовать формирование списка, используя функцию range() и возможности генератора.
-# В список должны войти чётные числа от 100 до 1000 (включая границы).
-# Нужно получить результат вычисления произведения всех элементов списка.
-# Подсказка: использовать функцию reduce().
+# Создать (программно) текстовый файл, записать в него программно набор чисел, разделённых пробелами.
+# Программа должна подсчитывать сумму чисел в файле и выводить её на экран
 
-from functools import reduce
-
-def my_f(a, b):
-    return a * b
-print(list(range(100, 1001, 2)))
-print(reduce(my_f, list(range(100, 1001, 2))))
+my_prog = open("test_5.txt", "w", encoding="utf-8")
+str_list = ["1 14 25 45 30 3 10"]
+my_prog.writelines(str_list)
+print(str_list)
+for line in str_list:
+    numbers = line.split(' ')
+    print(sum(map(int, numbers)))
+my_prog.close()

@@ -1,28 +1,29 @@
-# Представлен список чисел. Определите элементы списка, не имеющие повторений.
-# Сформируйте итоговый массив чисел, соответствующих требованию.
-# Элементы выведите в порядке их следования в исходном списке.
-# Для выполнения задания обязательно используйте генератор.
-# Пример исходного списка: [2, 2, 2, 7, 23, 1, 44, 44, 3, 2, 10, 7, 4, 11].
-# Результат: [23, 1, 3, 10, 4, 11]
+# Создать (не программно) текстовый файл со следующим содержимым:
+# One — 1
+# Two — 2
+# Three — 3
+# Four — 4
+# Напишите программу, открывающую файл на чтение и считывающую построчно данные.
+# При этом английские числительные должны заменяться на русские. Новый блок строк должен записываться в новый текстовый файл
 
-'''from itertools import permutations
-my_list = [2, 2, 2, 7, 23, 1, 44, 44, 3, 2, 10, 7, 4, 11]
-new_list = permutations(my_list, 3)
+my_prog = open("test_4.txt", "r", encoding="utf-8")
+filestr = my_prog.read()
+splitlist = filestr.split("\n")
+my_prog.close()
 
-print(*(new_list))'''
+num = []
+wordsEN = []
+wordsRUS = ["Один","Два","Три","Четыре"]
 
-my_list = [2, 2, 2, 7, 23, 1, 44, 44, 3, 2, 10, 7, 4, 11]
-# used = set()
-# unique = [x for x in my_list if x not in used and (used.add(x) or True)]
-# print(unique)
-my_list = [2, 2, 2, 7, 23, 1, 44, 44, 3, 2, 10, 7, 4, 11]
-from collections import Counter
-counter = Counter(my_list)
-new_list = [x for x,n in counter.items() if n==1]
-print(new_list)
+for line in splitlist:
+    wrdsEN, n = line.split("-")
+    wordsEN.append(wrdsEN)
+    num.append(n)
 
-# unique = list(counter)
-# print(unique)
+X_Y = (list(map(lambda x, y: x +" -"+ y+"\n", wordsRUS, num)))
 
-single = [x for x,n in counter.items() if n==1]
-print(single)
+translated = open("Translate_test_4.txt", "w", encoding="utf-8")
+translated.write("".join(X_Y))
+translated.close()
+
+
