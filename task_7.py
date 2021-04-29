@@ -10,6 +10,15 @@ def generator(n):
         temp *= i
         yield temp
 
+import json
+
+with open("new_test_7.json", "w", encoding="utf-8") as new_f:
+    with open("test_7.txt", "r", encoding="utf-8") as my_f:
+        profit = {line.split()[0]: int(line.split()[2]) - int(line.split()[3]) for line in my_f }
+        result = [int(i) for i in profit.values() if int(i) > 0]
+        average_profit = [profit, {"average_profit": round(sum(result) / len(result))}]
+        json.dump(average_profit, new_f, ensure_ascii=False, indent=4)
+
 
 n = int(input("Укажите факториал какого числа Вы хотели бы узнать?\n"))
 for a in generator(n):
