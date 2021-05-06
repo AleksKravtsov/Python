@@ -1,26 +1,45 @@
-# Реализовать базовый класс Worker (работник), в котором определить атрибуты: name, surname, position (должность), income (доход).
-# Последний атрибут должен быть защищенным и ссылаться на словарь, содержащий элементы: оклад и премия, например, {"wage": wage, "bonus": bonus}.
-# Создать класс Position (должность) на базе класса Worker.
-# В классе Position реализовать методы получения полного имени сотрудника (get_full_name) и дохода с учетом премии (get_total_income).
-# Проверить работу примера на реальных данных (создать экземпляры класса Position,
-# передать данные, проверить значения атрибутов, вызвать методы экземпляров).
+# Реализовать программу работы с органическими клетками. Необходимо создать класс Клетка.
+# В его конструкторе инициализировать параметр, соответствующий количеству клеток (целое число).
+# В классе должны быть реализованы методы перегрузки арифметических операторов:
+# сложение (__add__()), вычитание (__sub__()), умножение (__mul__()), деление (__truediv__()).
+# Данные методы должны применяться только к клеткам и выполнять увеличение, уменьшение, умножение и обычное (не целочисленное)
+# деление клеток, соответственно. В методе деления должно осуществляться округление значения до целого числа.
+#
+# В классе необходимо реализовать метод make_order(), принимающий экземпляр класса и количество ячеек в ряду.
+# Данный метод позволяет организовать ячейки по рядам.
+# Метод должен возвращать строку вида *****\n*****\n*****..., где количество ячеек между \n равно переданному аргументу.
+# Если ячеек на формирование ряда не хватает, то в последний ряд записываются все оставшиеся.
 
-class Worker:
-    def __init__(self, name, surname, position, wage, bonus):
-        self.name = name
-        self.surname = surname
-        self.position = position
-        self._income = {"wage": wage, "bonus": bonus}
+class Cell:
+    def __init__(self, num):
+        self.num = num
 
+    def make_order(self, row):
+        return '\n'.join(['*' * row for _ in range(self.num // row)]) + '\n' + '*' * (self.num % row)
 
-class Position(Worker):
-    def get_full_name(self):
-        return f"{self.name}  {self.surname}"
+    def __str__(self):
+        return f"{self.num}"
 
-    def get_total_income(self):
-        return f"{sum(self._income.values())}"
+    def __add__(self, other):
+        print("Сумма клеток:")
+        return Cell(self.num + other.num)
 
-worker = Position("Ivan", "Pupkin", "Developer", 250000, 400000)
-print(worker.get_full_name())
-print(worker.position)
-print(worker.get_total_income())
+    def __sub__(self, other):
+        print("Вычетание клеток:")
+        return Cell(self.num - other.num) if self.num - other.num > 0 else "Вычетание невозможно, в первой клетке меньше ячеек чем во второй"
+
+    def __mul__(self, other):
+        print("Произведение клеток:")
+        return Cell(self.num * other.num)
+
+    def __floordiv__(self, other):
+        print("Деление клеток:")
+        return Cell(self.num // other.num)
+
+cell_1 = Cell(12)
+cell_2 = Cell(11)
+print(cell_1 + cell_2)
+print(cell_1 - cell_2)
+print(cell_1 * cell_2)
+print(cell_1 // cell_2)
+print(cell_2.make_order(3))
