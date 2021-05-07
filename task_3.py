@@ -1,26 +1,27 @@
-# Реализовать базовый класс Worker (работник), в котором определить атрибуты: name, surname, position (должность), income (доход).
-# Последний атрибут должен быть защищенным и ссылаться на словарь, содержащий элементы: оклад и премия, например, {"wage": wage, "bonus": bonus}.
-# Создать класс Position (должность) на базе класса Worker.
-# В классе Position реализовать методы получения полного имени сотрудника (get_full_name) и дохода с учетом премии (get_total_income).
-# Проверить работу примера на реальных данных (создать экземпляры класса Position,
-# передать данные, проверить значения атрибутов, вызвать методы экземпляров).
+# Создайте собственный класс-исключение, который должен проверять содержимое списка на наличие только чисел.
+# Проверить работу исключения на реальном примере. Необходимо запрашивать у пользователя данные и заполнять список.
+# Класс-исключение должен контролировать типы данных элементов списка.
+# Примечание: длина списка не фиксирована. Элементы запрашиваются бесконечно, пока пользователь сам не остановит работу скрипта,
+# введя, например, команду “stop”. При этом скрипт завершается, сформированный список выводится на экран.
 
-class Worker:
-    def __init__(self, name, surname, position, wage, bonus):
-        self.name = name
-        self.surname = surname
-        self.position = position
-        self._income = {"wage": wage, "bonus": bonus}
+class exception(Exception):
+    def __init__(self, a):
+        self.a = a
 
 
-class Position(Worker):
-    def get_full_name(self):
-        return f"{self.name}  {self.surname}"
+my_list = []
 
-    def get_total_income(self):
-        return f"{sum(self._income.values())}"
+while True:
+    my_data = input("Введите только число: ")
+    if my_data == "":
+        break
+    try:
+        if my_data.replace("-", "").replace(".", "").isdigit():
+            my_list.append(float(my_data))
+        else:
+            raise exception("Вы ввели не число!")
+    except exception as err:
+        print(err)
+        continue
 
-worker = Position("Ivan", "Pupkin", "Developer", 250000, 400000)
-print(worker.get_full_name())
-print(worker.position)
-print(worker.get_total_income())
+print(my_list)

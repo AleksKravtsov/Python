@@ -1,19 +1,26 @@
-# Реализовать генератор с помощью функции с ключевым словом yield, создающим очередное значение.
-# При вызове функции должен создаваться объект-генератор. Функция вызывается следующим образом: for el in fact(n).
-#     Она отвечает за получение факториала числа. В цикле нужно выводить только первые n чисел, начиная с 1! и до n!.
-# Подсказка: факториал числа n — произведение чисел от 1 до n.
-#     Например, факториал четырёх 4! = 1 * 2 * 3 * 4 = 24.
+# Реализовать проект «Операции с комплексными числами».
+# Создайте класс «Комплексное число», реализуйте перегрузку методов сложения и умножения комплексных чисел.
+# Проверьте работу проекта, создав экземпляры класса (комплексные числа) и выполнив сложение и умножение созданных экземпляров.
+# Проверьте корректность полученного результата.
 
-def generator(n):
-    temp = 1
-    for i in range(1, n + 1):
-        temp *= i
-        yield temp
+class ComplexNumber:
+    def __init__(self, real, imaginary):
+        self.real = real
+        self.img = imaginary
+
+    def __str__(self):
+        return f'{self.real}+{self.img}i' if self.img > 0 else f'{self.real}{self.img}i'
+
+    def __add__(self, other):
+        return ComplexNumber(self.real + other.real, self.img + other.img)
+
+    def __mul__(self, other):
+        return ComplexNumber((self.real * other.real - self.img * other.img),
+                             (self.img * other.real + self.real * other.img))
 
 
-n = int(input("Укажите факториал какого числа Вы хотели бы узнать?\n"))
-for a in generator(n):
-    print(a)
-
-from math import factorial as fact
-print(fact(10))
+cn_1 = ComplexNumber(3, -1)
+cn_2 = ComplexNumber(6, 5)
+print(cn_1 + cn_2)
+print(cn_1 * cn_2)
+print(complex(7, -4) * complex(2, 2))

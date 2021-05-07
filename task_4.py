@@ -1,84 +1,137 @@
-# Реализуйте базовый класс Car. У данного класса должны быть следующие атрибуты: speed, color, name, is_police (булево).
-# А также методы: go, stop, turn(direction), которые должны сообщать, что машина поехала, остановилась, повернула (куда).
-# Опишите несколько дочерних классов: TownCar, SportCar, WorkCar, PoliceCar.
-# Добавьте в базовый класс метод show_speed, который должен показывать текущую скорость автомобиля.
-# Для классов TownCar и WorkCar переопределите метод show_speed.
-# При значении скорости свыше 60 (TownCar) и 40 (WorkCar) должно выводиться сообщение о превышении скорости.
-# Создайте экземпляры классов, передайте значения атрибутов. Выполните доступ к атрибутам, выведите результат.
-# Выполните вызов методов и также покажите результат.
+# Начните работу над проектом «Склад оргтехники». Создайте класс, описывающий склад.
+# А также класс «Оргтехника», который будет базовым для классов-наследников.
+# Эти классы — конкретные типы оргтехники (принтер, сканер, ксерокс).
+# В базовом классе определить параметры, общие для приведенных типов.
+# В классах-наследниках реализовать параметры, уникальные для каждого типа оргтехники.
 
-class Car:
+class OfficeEquipment:
+    ''' Оргтехника '''
 
-    def __init__(self, name, color, speed, is_police=False):
-        self.name = name
-        self.color = color
-        self.speed = speed
-        self.is_police = is_police
-        print(f"New car: {self.name} (color {self.color}) police car - {self.is_police}")
+    def __init__(self, model, price, dpi, paper_size):
+        self._model = model
+        self._price = price
+        self._dpi = dpi
+        self._paper_size = paper_size
 
-    def go(self):
-        print(f"{self.name}: Car is going. ")
-
-    def stop(self):
-        print(f"{self.name}: Car stopped. ")
-
-    def turn(self, direction):
-        print(f"{self.name}: Car is turning {'left' if direction == 0 else 'right'}. ")
-
-    def show_speed(self):
-        print(f"{self.name}: Car`s speed: {self.speed}. ")
-
-class TownCar(Car):
-
-    def show_speed(self):
-        return f"{self.name}: Car`s speed: {self.speed}. Speeding!" if self.speed > 60 else f"{self.name}: Car`s speed: {self.speed}. "
-
-class WorkCar(Car):
-
-    def show_speed(self):
-        return f"{self.name}: Car`s speed: {self.speed}. Speeding!" if self.speed > 40 else f"{self.name}: Car`s speed: {self.speed}. "
-
-class SportCar(Car):
-    pass
+    @property
+    def model(self):
+        return self._model
 
 
-class PoliceCar(Car):
-    def __init__(self, name, color, speed, is_police=True):
-        super().__init__(name, color, speed, is_police)
+class Printer(OfficeEquipment):
+    ''' Принтер '''
 
-police_car = PoliceCar('Ford', 'black', 90)
-police_car.go()
-print(police_car.show_speed())
-police_car.turn(0)
-police_car.turn(0)
-police_car.stop()
-print()
-
-work_car = WorkCar('Kamaz', 'green', 50)
-work_car.go()
-work_car.turn(0)
-print(work_car.show_speed())
-work_car.turn(1)
-work_car.stop()
-print()
-
-sport_car = SportCar('Mazda', 'red', 160)
-sport_car.go()
-sport_car.turn(0)
-print(sport_car.show_speed())
-sport_car.turn(1)
-sport_car.stop()
-print()
-
-town_car = TownCar('Reno', 'wight', 70)
-town_car.go()
-town_car.turn(1)
-print(town_car.show_speed())
-town_car.turn(1)
-town_car.stop()
+    def __init__(self, model, price, dpi, paper_size, jet_type):
+        self.jet_type = jet_type
+        super().__init__(model, price, dpi, paper_size)
 
 
+class Scanner(OfficeEquipment):
+    ''' Сканер '''
 
+
+class Copier(OfficeEquipment):
+    ''' Копир '''
+
+    def __init__(self, model, price, dpi, paper_size, print_speed, monthly_print_volume):
+        self.print_speed = print_speed
+        self.monthly_print_volume = monthly_print_volume
+        super().__init__(model, price, dpi, paper_size)
+
+
+class Warehouse:
+    ''' Склад '''
+    __equipments = dict()
+    __issued_equipments = dict()
+
+    def add_Equipment(self, key, value):
+        ''' Приём оргтехники на склад '''
+        if self.__equipments.get(key) == None:
+            self.__equipments[key] = 0
+        self.__equipments[key] += value
+
+    def issue_Equipment(self, key, value):
+        ''' Выдача оргтехники со склада '''
+        rest = self.__equipments.get(key)
+        if rest != None and rest >= value:
+            self.__equipments[key] -= value
+            if self.__equipments[key] == 0:
+                del self.__equipments[key]
+
+    def num(self, key):
+        value = self.__equipments.get(key)
+        return value if value != None else 0
+
+    def equipments_in_warehouse(self):
+        print('\n------------------------------------\nЗапасы на складе:\n------------------------------------')
+        for i in self.__equipments:
+            print(f'{models[i].model} - {self.num(i)} шт.')
+        print('------------------------------------')
+
+    def issued_equipments(self):
+        ''' Вывод информации овыданной оргтехикие '''
+        print(f'\nIssued to office:\n{self.__equipments}')
+
+
+# список моделей оргтехники
+models = [Printer('HP Laserjet 2130', 1950, '4800x1200', 'A4', 'laserjet'),
+          Printer('CANON Pixma MG3640S BK', 3640, '4800x1200', 'A4', 'inkjet'),
+          Copier('XEROX CopyCentre C118', 87800, '600x600', 'A3', 18, 10000),
+          Scanner('EPSON Perfection V19', 5110, '4800×4800', 'A3')]
+
+warehouse = Warehouse()
+warehouse.equipments_in_warehouse()
+
+while True:
+    # меню операций
+    print('\nВведите тип операции:\n<1> Принять на склад.\n<2> Выдать со склада.\n<Enter> Выход.')
+    action = input('> ')
+    if action in ['1', '2']:  # если выбрана операция
+        # формируем список оргтехники
+        s = ''
+        for i, eq in enumerate(models):
+            s += f'\n<{i}> {eq.model} ({warehouse.num(i)} шт.)'
+        # меню оргтехники
+        while True:
+            print(f'\nВведите модель оргтехники и кол-во:{s}')
+            # выбираем модель
+            try:
+                model = int(input('модель > '))
+                if model in range(len(models)):
+                    # вводим кол-во
+                    n = int(input('кол-во > '))
+                    if (n <= 0):
+                        raise ValueError
+                else:
+                    raise ValueError
+
+            except ValueError:
+                print(f'Некорректный ввод. Введите число от <0> до <{len(models)}>.')
+                continue
+            else:
+                # совершаем операцию
+                print('\nОперация:')
+                if (action == '1'):  # принимаем технику на склад
+                    print(f'Принято на склад {models[model].model} - {n} шт.')
+                    warehouse.add_Equipment(model, n)
+                elif (action == '2'):  # выдаём технику со склада
+                    max = warehouse.num(model)
+                    if (n > max):  # если запрошено больше, чем есть
+                        n = max
+                        print(f'Внимание: На складе всего {n} шт. {models[model].model}!')
+                    print(f'Выдано со склада {models[model].model} - {n} шт.')
+                    warehouse.issue_Equipment(model, n)
+
+                # выводим остатки по складу
+                warehouse.equipments_in_warehouse()
+                break
+
+            if (input('\nPress <Enter> to continue or any key to exit...') != ''):
+                break
+    elif action == '':  # если выбран выход - завершаем работу
+        break
+    else:
+        print('Некорректный ввод. Для выбора введите <1> или <2>.')
 
 
 
